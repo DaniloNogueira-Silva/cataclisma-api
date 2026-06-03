@@ -5,7 +5,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors(); // libera todas as origens — ajuste em produção
+  app.enableCors({
+    origin: '*',
+  }); // libera todas as origens — ajuste em produção
 
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, transform: true }),
