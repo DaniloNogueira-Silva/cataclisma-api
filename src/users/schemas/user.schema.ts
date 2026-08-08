@@ -11,9 +11,6 @@ export class User {
   @Prop({ required: true, unique: true, lowercase: true, trim: true })
   email: string;
 
-  @Prop({ required: true })
-  passwordHash: string;
-
   @Prop({ default: false })
   isAdmin: boolean;
 }
@@ -25,7 +22,6 @@ UserSchema.set('toJSON', {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
-    delete ret.passwordHash;
     return ret;
   },
 });

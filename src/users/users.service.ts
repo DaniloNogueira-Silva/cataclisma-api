@@ -16,12 +16,10 @@ export class UsersService {
   async create(data: {
     name: string;
     email: string;
-    passwordHash: string;
   }): Promise<UserDocument> {
     return this.userModel.create({
       name: data.name,
       email: data.email.toLowerCase(),
-      passwordHash: data.passwordHash,
     });
   }
 }
