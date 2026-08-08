@@ -5,6 +5,15 @@ import * as dns from 'dns';
 
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 
+const uri = process.env.MONGODB_URI ?? '';
+console.log('[debug] MONGODB_URI check:', {
+  present: uri.length > 0,
+  length: uri.length,
+  tail: uri.slice(-8),
+  hasNewline: /[\r\n]/.test(uri),
+  hasLeadingOrTrailingSpace: uri !== uri.trim(),
+});
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
