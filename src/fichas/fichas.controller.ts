@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -18,8 +19,9 @@ export class FichasController {
   constructor(private readonly fichasService: FichasService) {}
 
   @Get()
-  findAll(@Request() req: any) {
-    return this.fichasService.findAll(req.user.sub);
+  findAll(@Request() req: any, @Query('all') all: string) {
+    const showAll = all === 'true' && req.user.isAdmin;
+    return this.fichasService.findAll(req.user.sub, showAll);
   }
 
   @Get(':id')

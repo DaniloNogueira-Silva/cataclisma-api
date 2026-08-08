@@ -14,9 +14,10 @@ export class FichasService {
   ) {}
 
   // ── LIST (resumo) ────────────────────────────────────────────────────────
-  async findAll(userId: string) {
+  async findAll(userId: string, showAll = false) {
+    const query = showAll ? {} : { userId: new Types.ObjectId(userId) };
     return this.fichaModel
-      .find({ userId: new Types.ObjectId(userId) })
+      .find(query)
       .select('nome nivel classe origem updatedAt')
       .lean({ virtuals: false })
       .exec()
