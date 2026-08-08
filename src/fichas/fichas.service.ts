@@ -34,10 +34,11 @@ export class FichasService {
   }
 
   // ── GET ONE ──────────────────────────────────────────────────────────────
-  async findOne(id: string, userId: string) {
+  async findOne(id: string, userId: string, isAdmin = false) {
     const ficha = await this.fichaModel.findById(id).exec();
-    this.assertOwner(ficha, userId);
-    return ficha!.toJSON();
+    if (!isAdmin) this.assertOwner(ficha, userId);
+    if (!ficha) throw new NotFoundException('Ficha not found');
+    return ficha.toJSON();
   }
 
   // ── CREATE ───────────────────────────────────────────────────────────────

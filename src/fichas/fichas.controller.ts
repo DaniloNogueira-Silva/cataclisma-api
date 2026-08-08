@@ -26,7 +26,7 @@ export class FichasController {
 
   @Get(':id')
   findOne(@Param('id') id: string, @Request() req: any) {
-    return this.fichasService.findOne(id, req.user.sub);
+    return this.fichasService.findOne(id, req.user.sub, req.user.isAdmin);
   }
 
   @Post()
